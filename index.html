@@ -1,0 +1,62 @@
+### Include the js and css of the datatable
+
+ <table id="example_fleet" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                  <thead>
+                    <tr>
+                      <th>Truck Make</th>
+                      <th>Year</th>
+                      <th>Condition</th>
+                      <!-- <th>Department</th> -->
+                      <th>Created At</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     @foreach($fleet as $ft)
+                    <tr>
+                      <td>{!! $ft->truck_make !!}</td>
+                      <td>{{ $ft->year }}</td>
+                      <td>{{ $ft->condition }}</td>
+                      
+                      <td>{{$ft->created_at}}</td>
+                      <td>
+                          <div class="btn-group hiderow{{$ft->id}}">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                              <div class="dropdown-menu">
+                                  <a class="dropdown-item" href="{{ URL('view_fleet/') }}/{{$ft->id}}">View</a>
+                                  <a class="dropdown-item" href="{{ URL('edit_fleet/') }}/{{$ft->id}}">Edit</a>
+
+                                  <a href="javascript:void(0)" class="dropdown-item remove_fleet"  data-id = "{{$ft->id}}" >Remove</a>
+                              </div>
+                              <!-- data-toggle="modal" data-target="#myModal" -->
+                          </div>  
+                      </td>
+
+                @endforeach
+                    </tr>
+                  </tbody>          
+                  <tfoot>
+                       <th>Truck Make</th>
+                      <th>Year</th>
+                      <th>Condition</th>
+                      <!-- <th>Department</th> -->
+                      <th>Created At</th>
+                      <th>Action</th>
+                  </tfoot>
+                </table>
+
+
+<script type="text/javascript">
+    $('#example_fleet').DataTable( {
+      dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ],
+        destroy: true,
+        ordering: false } );
+      $.fn.dataTable.ext.errMode = 'none';
+
+</script>
